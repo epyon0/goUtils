@@ -9,7 +9,6 @@ import (
 	"runtime"
 	"strconv"
 	"time"
-	"unicode/utf8"
 )
 
 func Er(err error) {
@@ -73,7 +72,24 @@ func WalkByteSlice(input []byte) string {
 			output += fmt.Sprint("\n")
 		}
 	}
-	//output += fmt.Sprint("\n")
+
+	return output
+}
+
+func DumpByteSlice(input []byte) string {
+	var output string
+
+	if len(input) == 0 {
+		return ""
+	}
+
+	for n := 0; n < len(input); n++ {
+		output += fmt.Sprintf("%08b  ", input[n])
+
+		if (n+1)%2 == 0 {
+			output += fmt.Sprintf("\n")
+		}
+	}
 
 	return output
 }
@@ -89,18 +105,20 @@ func IsPipe() (bool, error) {
 
 func PP[T any](input *T) string {
 	var output string
-	dataType := fmt.Sprintf("%T", *input)
+	//dataType := fmt.Sprintf("%T", *input)
 
 	//	fmt.Printf("TYPE: %s\n", dataType)
 	//	fmt.Printf("LEN: %d, %v\n", len(dataType), *input)
 
-	if utf8.RuneCountInString(dataType) >= 2 && dataType[:2] == "[]" {
-		output = fmt.Sprintf("(%T) %v", *input, *input)
-	} else if utf8.RuneCountInString(dataType) >= 3 && dataType[:3] == "map" {
-		output = fmt.Sprintf("(%T) %v", *input, *input)
-	} else {
-		output = fmt.Sprintf("(%T) %v", *input, *input)
-	}
+	/*
+		if utf8.RuneCountInString(dataType) >= 2 && dataType[:2] == "[]" {
+			output = fmt.Sprintf("(%T) %v", *input, *input)
+		} else if utf8.RuneCountInString(dataType) >= 3 && dataType[:3] == "map" {
+			output = fmt.Sprintf("(%T) %v", *input, *input)
+		} else {
+			output = fmt.Sprintf("(%T) %v", *input, *input)
+		}
+	*/
 
 	return output
 }
