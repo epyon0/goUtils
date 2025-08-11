@@ -68,7 +68,7 @@ func WalkByteSlice(input []byte) string {
 
 		output += fmt.Sprintf("%02X ", input[n])
 
-		if (n+1)%32 == 0 {
+		if (n+1)%32 == 0 && n+1 != len(input) {
 			output += fmt.Sprint("\n")
 		}
 	}
@@ -86,7 +86,7 @@ func DumpByteSlice(input []byte) string {
 	for n := 0; n < len(input); n++ {
 		output += fmt.Sprintf("%08b  ", input[n])
 
-		if (n+1)%2 == 0 {
+		if (n+1)%2 == 0 && n+1 != len(input) {
 			output += fmt.Sprintf("\n")
 		}
 	}
