@@ -113,8 +113,14 @@ func ReadPipe() ([]byte, error) {
 				continue
 			}
 			if err == io.EOF {
-				//break
-				return data, nil
+				//Remove EOL characters
+				if data[len(data)-2] == 0x0d && data[len(data)-1] == 0x0a {
+					return data[:len(data)-2], nil
+				} else if data[len(data)-1] == 0x0a {
+					return data[:len(data)-1], nil
+				} else {
+					return data, nil
+				}
 			}
 			return data, err
 		}
