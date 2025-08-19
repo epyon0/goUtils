@@ -114,7 +114,7 @@ func ReadPipe() ([]byte, error) {
 			}
 			if err == io.EOF {
 				//break
-				return data, _
+				return data, nil
 			}
 			return data, err
 		}
