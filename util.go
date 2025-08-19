@@ -96,7 +96,7 @@ func DumpByteSlice(input []byte) string {
 	return output
 }
 
-func ReadPipe() ([]byte, err) {
+func ReadPipe() ([]byte, error) {
 	r := bufio.NewReader(os.Stdin)
 	buf := make([]byte, 0, 4*1024)
 	var data []byte
