@@ -1,7 +1,9 @@
 package utils
 
 import (
+	"bufio"
 	"fmt"
+	"io"
 	"log"
 	"os"
 	"path"
@@ -92,6 +94,37 @@ func DumpByteSlice(input []byte) string {
 	}
 
 	return output
+}
+
+func ReadPipe() ([]byte, err) {
+	r := bufio.NewReader(os.Stdin)
+	buf := make([]byte, 0, 4*1024)
+	var data []byte
+
+	for {
+		n, err := r.Read(buf[:cap(buf)])
+		if err != nil && err != io.EOF {
+			return data, err
+		}
+		buf = buf[:n]
+
+		if n == 0 {
+			if err == nil {
+				continue
+			}
+			if err == io.EOF {
+				//break
+				return data, err
+			}
+			return data, err
+		}
+
+		data = append(data, buf...)
+
+		if err != nil && err != io.EOF {
+			return data, err
+		}
+	}
 }
 
 func IsPipe() (bool, error) {
